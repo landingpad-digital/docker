@@ -1,0 +1,24 @@
+# OS generated files
+.DS_Store
+
+# Docker & Logs
+**/logs/
+**/*.log
+**/tmp/
+**/cache/
+**/data/
+**/.env
+
+# Ignore docker volumes & persistent data
+**/db_data/
+**/storage/
+**/uploads/
+
+# Node / Python / Other environments (if any)
+node_modules/
+venv/
+__pycache__/
+
+# VS Code & local IDE settings
+.vscode/
+.idea/

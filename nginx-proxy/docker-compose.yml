@@ -1,0 +1,40 @@
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - nextcloud-net
+    restart: always
+
+  nginx-letsencrypt:
+    image: nginxproxy/acme-companion
+    container_name: nginx-letsencrypt
+    environment:
+      - DEFAULT_EMAIL=dev@landingpad.digital
+    volumes_from:
+      - nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - acme:/etc/acme.sh
+    networks:
+      - nextcloud-net
+    restart: always
+
+volumes:
+  certs:
+  vhost:
+  html:
+  acme:
+
+networks:
+  nextcloud-net:
+    external: true

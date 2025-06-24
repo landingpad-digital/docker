@@ -1,0 +1,40 @@
+services:
+  app:
+    image: listmonk/listmonk:latest
+    container_name: listmonk-app
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      - listmonk_data:/listmonk/data  # Keeps listmonk data persistent
+      - ./config.toml:/listmonk/config.toml  # ADD THIS LINE (critical fix)
+    environment:
+      - TZ=UTC
+      - LISTMONK_DB_HOST=db
+      - LISTMONK_DB_USER=listmonk
+      - LISTMONK_DB_PASSWORD=listmonk
+      - LISTMONK_DB_DBNAME=listmonk
+      - LISTMONK_DB_SSLMODE=disable
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:13-alpine
+    container_name: listmonk-db
+    restart: unless-stopped
+    volumes:
+      - listmonk_db_data:/var/lib/postgresql/data  # Keeps PostgreSQL data persistent
+    environment:
+      - POSTGRES_USER=listmonk
+      - POSTGRES_PASSWORD=listmonk
+      - POSTGRES_DB=listmonk
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U listmonk -d listmonk"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  listmonk_data:
+  listmonk_db_data:

@@ -1,0 +1,14 @@
+FROM chatwoot/chatwoot:latest
+
+USER root
+ENV NODE_OPTIONS=--max-old-space-size=4096
+
+# Add Node and pnpm
+RUN apk add --no-cache nodejs npm \
+    && npm install -g pnpm
+
+WORKDIR /app
+
+# Install JS dependencies for Vite build
+RUN pnpm install
+
