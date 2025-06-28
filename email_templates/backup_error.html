@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>❌ Backup Failed</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      color: #212529;
+      padding: 20px;
+    }
+    pre {
+      background-color: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h2 style="color: #dc3545;">❌ Backup Failed: {{ERROR}} on {{HOSTNAME}}</h2>
+  <p><strong>Time:</strong> {{DATE}}</p>
+  <p>The automated backup script encountered an error.</p>
+  <pre>Command: {{COMMAND}}</pre>
+  <p>Please check the containers and backup logs:</p>
+  <pre>
+docker ps
+docker logs listmonk-db
+docker logs chatwoot_postgres
+docker logs cloud-db-1
+docker logs matomo-db
+tail -n 50 /var/log/msmtp.log
+  </pre>
+  <p>—<br>Your VPS backup bot 🤖</p>
+</body>
+</html>

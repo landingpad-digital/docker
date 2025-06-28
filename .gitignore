@@ -8,7 +8,7 @@
 **/cache/
 **/data/
 **/.env
-
+**/.env*
 # Ignore docker volumes & persistent data
 **/db_data/
 **/storage/

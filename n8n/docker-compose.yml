@@ -1,0 +1,34 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    restart: always
+    container_name: n8n_container
+    dns:
+      - 145.79.12.22
+      - 8.8.8.8
+    ports:
+      - "127.0.0.1:5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=${N8N_PORT}
+      - N8N_PROTOCOL=${N8N_PROTOCOL}
+      - WEBHOOK_TUNNEL_URL=${WEBHOOK_TUNNEL_URL}
+      - VUE_APP_URL_BASE_API=${VUE_APP_URL_BASE_API}
+      - N8N_SECURE_COOKIE=true
+      - PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY}
+      - N8N_OAUTH_CALLBACK_URL=https://n8n.landingpad.digital/rest/oauth2-credential/callback
+    #  - WEBHOOK_URL=${STRIPE_WEBHOOK_URL}
+    volumes:
+      - ~/.n8n:/home/node/.n8n
+    user: "1000:1000"  # Ensures container runs as user with UID 1000
+    networks:
+      - n8n_network
+
+networks:
+  n8n_network:
+    driver: bridge
+
+volumes:
+  n8n_data:

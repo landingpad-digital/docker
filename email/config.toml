@@ -7,3 +7,5 @@ user = "listmonk"
 password = "listmonk"
 database = "listmonk"
 ssl_mode = "disable"
+[bounce]
+enabled = false
