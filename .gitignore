@@ -1,24 +1,57 @@
-# OS generated files
+# ============================
+# OS-generated files
+# ============================
 .DS_Store
+Thumbs.db
 
-# Docker & Logs
+# ============================
+# Sensitive files & credentials
+# ============================
+.env*
+*.pem
+*.key
+*.crt
+
+# ============================
+# Docker-related files & volumes
+# ============================
+**/db_data/
+**/db_backups/
 **/logs/
-**/*.log
 **/tmp/
 **/cache/
-**/data/
-**/.env
-**/.env*
-# Ignore docker volumes & persistent data
-**/db_data/
-**/storage/
 **/uploads/
+**/storage/
+**/restore_*/     # Catches restore folders like restore_2025-06-27
+**/nextcloud.sql  # Example exposed dump (clean up!)
 
-# Node / Python / Other environments (if any)
+# ============================
+# Backup archives & logs
+# ============================
+**/*.log
+**/*.tar.gz
+**/*.tar.gz.gpg
+**/*.sql
+**/db_backup*.*
+**/db_backup.log
+
+# ============================
+# Node.js / Python / Other environments
+# ============================
 node_modules/
 venv/
 __pycache__/
+*.pyc
 
-# VS Code & local IDE settings
+# ============================
+# Editor / IDE configs
+# ============================
 .vscode/
 .idea/
+*.swp
+
+# ============================
+# System files
+# ============================
+ehthumbs.db
+Icon?
